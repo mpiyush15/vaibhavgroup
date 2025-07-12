@@ -1,14 +1,25 @@
+// ==============================
+// 🔰 Import Dependencies
+// ==============================
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 const helmet = require("helmet");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
+// ==============================
+// 🚀 Initialize Express App
+// ==============================
 const app = express();
-// Middleware to enhance security
-app.use(helmet());
 
-// ✅ STEP 1: Use CORS with proper config
+// ==============================
+// 🛡️ Middleware for Security
+// ==============================
+app.use(helmet()); // Sets secure HTTP headers
+
+// ==============================
+// 🌐 Configure CORS (Cross-Origin)
+// ==============================
 const allowedOrigins = [
   "http://localhost:3000",
   "https://vaibhavgroup.vercel.app"
@@ -19,7 +30,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"));
+      callback(new Error("❌ Not allowed by CORS"));
     }
   },
   credentials: true,
@@ -27,21 +38,31 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// ✅ STEP 2: Parse JSON requests
-app.use(express.json());
+// ==============================
+// 📦 Built-in Middleware
+// ==============================
+app.use(express.json()); // Parse incoming JSON
 
-// ✅ STEP 3: Connect MongoDB
+// ==============================
+// 🛠️ MongoDB Connection
+// ==============================
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+})
+.then(() => console.log("✅ MongoDB connected"))
+.catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// ✅ STEP 4: API Routes
-app.use("/api/auth", require("./routes/auth"));
+// ==============================
+// 🧩 API Routes
+// ==============================
+app.use("/api/auth", require("./routes/auth")); // Auth routes
 
-// ✅ STEP 5: Start the server
+// ==============================
+// 🚀 Start the Server
+// ==============================
 const PORT = process.env.PORT || 5050;
+
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🌐 Server running on port ${PORT}`);
 });

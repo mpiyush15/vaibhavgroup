@@ -4,12 +4,17 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const app = express();
-app.use(cors(
 
-    {origin: "http://localhost:3000", 
-    credentials: true}
+const allowedOrigins = [
+  "http://localhost:3000", // for local development
+  "https://vaibhavgroup.vercel.app", // replace this with actual deployed frontend URL later actual domain
 
-));
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 app.use(express.json());
 
 // Connect DB

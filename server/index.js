@@ -13,8 +13,7 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: allowedOrigins,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  origin: "https://vaibhavgroup.vercel.app", // Allow your frontend domain
   credentials: true
 }));
 

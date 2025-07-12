@@ -13,6 +13,8 @@ router.get('/hello', (req, res) => {
   res.json({ message: 'Hello from the auth route!' });
 });
 
-app.get('/favicon.ico', (req, res) => res.status(204).end());
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end();
+});
 
 module.exports = router;

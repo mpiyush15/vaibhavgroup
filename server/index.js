@@ -5,36 +5,25 @@ require("dotenv").config();
 
 const app = express();
 
-// const allowedOrigins = [
-//   "http://localhost:3000", // for local development
-//   "https://vaibhavgroup.vercel.app", // replace this with actual deployed frontend URL later actual domain
-
-// ];
-
-// app.use(cors({
-//   origin: allowedOrigins,
-//   credentials: true
-// }));
-
 // CORS configuration
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://vaibhavgroup.vercel.app", // your deployed frontend
-  "https://vaibhavgroup-production.up.railway.app" // add your backend domain for testing
+  "https://vaibhavgroup.vercel.app",
+  "https://vaibhavgroup-production.up.railway.app"
 ];
 
 app.use(cors({
   origin: function(origin, callback) {
-    // allow requests with no origin (like mobile apps, curl, etc.)
+    // Allow requests with no origin (like mobile apps, curl, etc.)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(null, false); // Don't throw an error, just deny
     }
-    return callback(null, true);
   },
   credentials: true
-}));
+}));;
 
 app.use(express.json());
 

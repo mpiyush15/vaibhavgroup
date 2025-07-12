@@ -5,33 +5,40 @@ require("dotenv").config();
 
 const app = express();
 
-// CORS configuration
+// ✅ STEP 1: Use CORS with proper config
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://vaibhavgroup.vercel.app",
-  "https://vaibhavgroup-production.up.railway.app"
+  "https://vaibhavgroup.vercel.app"
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// ✅ STEP 2: Parse JSON requests
 app.use(express.json());
 
-// Connect DB
+// ✅ STEP 3: Connect MongoDB
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true, useUnifiedTopology: true
-}).then(() => console.log("MongoDB Connected"));
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
-// Routes
+// ✅ STEP 4: API Routes
 app.use("/api/auth", require("./routes/auth"));
 
+// ✅ STEP 5: Start the server
 const PORT = process.env.PORT || 5050;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

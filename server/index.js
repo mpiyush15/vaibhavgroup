@@ -1,9 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
 require("dotenv").config();
 
 const app = express();
+// Middleware to enhance security
+app.use(helmet());
 
 // ✅ STEP 1: Use CORS with proper config
 const allowedOrigins = [

@@ -13,8 +13,9 @@ router.get('/hello', (req, res) => {
   res.json({ message: 'Hello from the auth route!' });
 });
 
-app.get('/favicon.ico', (req, res) => {
-  res.status(204).end();
+// Favicon route to prevent 404 errors for favicon requests
+router.get('/favicon.ico', (req, res) => {
+  res.status(204).end(); // No content
 });
 
 module.exports = router;

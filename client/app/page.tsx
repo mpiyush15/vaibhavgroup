@@ -8,7 +8,7 @@ export default function Home() {
   const [, setData] = useState([]);
 
   useEffect(() => {
-    fetchData(" https://vaibhavgroup-production.up.railway.app/api/auth/hello")
+    fetchData("/auth/hello")
       .then((res) => setData(res)) 
       .catch((err) => console.error(err));
   }, []);

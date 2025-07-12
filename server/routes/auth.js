@@ -15,7 +15,7 @@ router.get('/hello', (req, res) => {
 
 // Favicon route to prevent 404 errors for favicon requests
 router.get('/favicon.ico', (req, res) => {
-  res.status(204).end(); // No content
+  res.json({ message: 'Favicon route hit!' });
 });
 
 module.exports = router;

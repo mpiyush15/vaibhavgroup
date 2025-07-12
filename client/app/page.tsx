@@ -9,7 +9,7 @@ export default function Home() {
   const [, setData] = useState([]);
 
   useEffect(() => {
-    fetchData("/auth/hello")
+    fetchData(" https://vaibhavgroup-production.up.railway.app/api/auth/hello ")
       .then((res) => setData(res)) 
       .catch((err) => console.error(err));
   }, []);
